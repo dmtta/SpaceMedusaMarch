@@ -4,14 +4,27 @@ using System.Collections;
 public class CameraControl : MonoBehaviour {
 
 	public Transform target;
+	public Transform cam;
+	bool derp=true;
 
 	// Use this for initialization
 	void Start () {
 	
 	}
+
+	void Update(){
+		if (Input.GetKey (KeyCode.K)){
+			derp=!derp;
+		}
+		
+		if(derp){
+		transform.rotation=Quaternion.Slerp(transform.rotation, cam.rotation, Time.deltaTime);
+		}
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(derp){
 		//transform.Rotate(Vector3.up);
 		//transform.Translate(Vector3.forward * 0.01f);
 		if (Input.GetKey (KeyCode.W)) {
@@ -28,7 +41,7 @@ public class CameraControl : MonoBehaviour {
 			transform.Rotate(Vector3.up*.5f);
 		}
 		if (Input.GetKey ("space")){
-			rigidbody.AddForce(target.forward * 0.2f);
+			rigidbody.AddForce(target.forward*10);
 		}
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			transform.Rotate(new Vector3(0,0,.5f));
@@ -45,6 +58,6 @@ public class CameraControl : MonoBehaviour {
 			rigidbody.angularDrag=0;
 		}
 	}
-
+	}
 
 }
